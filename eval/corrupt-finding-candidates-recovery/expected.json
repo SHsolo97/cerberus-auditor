@@ -1,0 +1,30 @@
+{
+  "corruption_steps": [
+    {
+      "before_phase": "finding_confirmation",
+      "write_path": ".audit_board/finding_candidates.json",
+      "content": "{\"findings\": [",
+      "recover_with_phases": ["finding_candidates"]
+    }
+  ],
+  "expected_corruption_failures": [
+    "finding_confirmation"
+  ],
+  "expected_findings": [
+    "callback-state-drift-settleBridge",
+    "recovery-path-settleBridge",
+    "settlement-dependency-bridge"
+  ],
+  "expected_confirmed": [
+    "callback-state-drift-settleBridge",
+    "recovery-path-settleBridge",
+    "settlement-dependency-bridge"
+  ],
+  "expected_proof_plans": [
+    "callback-state-drift-settleBridge",
+    "recovery-path-settleBridge",
+    "settlement-dependency-bridge"
+  ],
+  "forbidden_proof_plans": [],
+  "expected_top_finding": "settlement-dependency-bridge"
+}

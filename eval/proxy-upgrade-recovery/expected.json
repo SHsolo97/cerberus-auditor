@@ -1,0 +1,12 @@
+{
+  "expected_findings": [
+    "recovery-dependency-proxy",
+    "recovery-path-recoverTreasury",
+    "unguarded-sink-upgradeTo"
+  ],
+  "expected_confirmed": [
+    "recovery-dependency-proxy",
+    "recovery-path-recoverTreasury",
+    "unguarded-sink-upgradeTo"
+  ]
+}

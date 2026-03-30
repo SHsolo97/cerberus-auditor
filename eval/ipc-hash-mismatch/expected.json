@@ -1,0 +1,11 @@
+{
+  "expected_findings": [
+    "authority-drift-configureResultHandler-executeResult",
+    "unguarded-sink-executeResult"
+  ],
+  "expected_confirmed": [
+    "authority-drift-configureResultHandler-executeResult",
+    "unguarded-sink-executeResult"
+  ],
+  "expected_top_finding": "authority-drift-configureResultHandler-executeResult"
+}

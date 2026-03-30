@@ -1,0 +1,11 @@
+{
+  "expected_findings": [
+    "unguarded-sink-executePayout",
+    "callback-state-drift-executePayout"
+  ],
+  "expected_confirmed": [
+    "unguarded-sink-executePayout",
+    "callback-state-drift-executePayout"
+  ],
+  "expected_rejected": []
+}

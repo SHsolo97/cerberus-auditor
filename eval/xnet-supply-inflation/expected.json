@@ -1,0 +1,11 @@
+{
+  "expected_findings": [
+    "authority-drift-configureCircSupply-executeBottomUpMsgs",
+    "unguarded-sink-executeBottomUpMsgs"
+  ],
+  "expected_confirmed": [
+    "authority-drift-configureCircSupply-executeBottomUpMsgs",
+    "unguarded-sink-executeBottomUpMsgs"
+  ],
+  "expected_top_finding": "authority-drift-configureCircSupply-executeBottomUpMsgs"
+}

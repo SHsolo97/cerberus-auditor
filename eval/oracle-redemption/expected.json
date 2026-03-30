@@ -1,0 +1,10 @@
+{
+  "expected_findings": [
+    "callback-state-drift-redeem",
+    "settlement-dependency-oracle"
+  ],
+  "expected_confirmed": [
+    "callback-state-drift-redeem",
+    "settlement-dependency-oracle"
+  ]
+}

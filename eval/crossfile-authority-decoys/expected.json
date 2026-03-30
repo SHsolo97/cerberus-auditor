@@ -1,0 +1,11 @@
+{
+  "expected_findings": [
+    "authority-drift-setTreasury-rescueToken",
+    "recovery-path-recoverTreasury"
+  ],
+  "expected_confirmed": [
+    "authority-drift-setTreasury-rescueToken",
+    "recovery-path-recoverTreasury"
+  ],
+  "expected_top_finding": "authority-drift-setTreasury-rescueToken"
+}

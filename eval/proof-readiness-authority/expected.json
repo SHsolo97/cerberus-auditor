@@ -1,0 +1,26 @@
+{
+  "expected_findings": [
+    "authority-drift-setTreasury-rescueToken",
+    "recovery-dependency-proxy",
+    "recovery-path-recoverTreasury",
+    "unguarded-sink-upgradeTo"
+  ],
+  "expected_confirmed": [
+    "authority-drift-setTreasury-rescueToken",
+    "recovery-dependency-proxy",
+    "recovery-path-recoverTreasury",
+    "unguarded-sink-upgradeTo"
+  ],
+  "expected_proof_plans": [
+    "authority-drift-setTreasury-rescueToken",
+    "recovery-path-recoverTreasury",
+    "unguarded-sink-upgradeTo",
+    "recovery-dependency-proxy"
+  ],
+  "forbidden_proof_plans": [],
+  "expected_top_finding": "authority-drift-setTreasury-rescueToken",
+  "expected_order_prefix": [
+    "authority-drift-setTreasury-rescueToken",
+    "unguarded-sink-upgradeTo"
+  ]
+}

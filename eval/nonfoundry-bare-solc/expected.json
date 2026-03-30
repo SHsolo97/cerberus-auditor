@@ -1,0 +1,6 @@
+{
+  "_toolchain_mode": "degraded",
+  "_note": "Bare solc project with no build config. Skill should run in degraded mode producing regex-based analysis.",
+  "expected_findings": ["unguarded-sink-sweep", "authority-drift-setOperator-removeOperator"],
+  "expected_confirmed": ["unguarded-sink-sweep"]
+}

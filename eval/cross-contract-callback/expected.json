@@ -1,0 +1,11 @@
+{
+  "expected_findings": [
+    "callback-state-drift-withdrawAll",
+    "unguarded-sink-withdrawAll"
+  ],
+  "expected_confirmed": [
+    "callback-state-drift-withdrawAll",
+    "unguarded-sink-withdrawAll"
+  ],
+  "expected_rejected": []
+}

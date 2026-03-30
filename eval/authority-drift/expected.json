@@ -1,0 +1,8 @@
+{
+  "expected_findings": [
+    "authority-drift-setTreasury-rescueToken"
+  ],
+  "expected_confirmed": [
+    "authority-drift-setTreasury-rescueToken"
+  ]
+}

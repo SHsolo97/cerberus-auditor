@@ -10,22 +10,21 @@ from typing import Dict, List, Set, Tuple
 
 
 SKILL_ROOT = Path(__file__).resolve().parent.parent
-# benchmarks/ and resources/ both live under cerberus-proof-auditor/ (SKILL_ROOT)
-BENCHMARKS_DIR = SKILL_ROOT / "benchmarks"
-RESOURCES = SKILL_ROOT / "resources"
+# eval/ holds the 73 benchmark fixtures; scripts live under their owning sub-skills
+EVAL_FIXTURES_DIR = SKILL_ROOT / "eval"
 
 PIPELINE = [
-    ("init", RESOURCES / "init_workspace.py"),
-    ("preflight_or_repair", RESOURCES / "preflight_or_repair.py"),
-    ("semantic_index", RESOURCES / "build_semantic_index.py"),
-    ("ast_semantic_index", RESOURCES / "ast_semantic_index.py"),
-    ("action_catalog", RESOURCES / "extract_actions.py"),
-    ("authority_graph", RESOURCES / "build_authority_graph.py"),
-    ("dependency_graph", RESOURCES / "build_dependency_graph.py"),
-    ("invariant_candidates", RESOURCES / "mine_invariants.py"),
-    ("finding_candidates", RESOURCES / "generate_finding_candidates.py"),
-    ("finding_confirmation", RESOURCES / "confirm_findings.py"),
-    ("proof_planning", RESOURCES / "plan_proofs.py"),
+    ("init", SKILL_ROOT / "profiler/scripts/init_workspace.py"),
+    ("preflight_or_repair", SKILL_ROOT / "profiler/scripts/preflight_or_repair.py"),
+    ("semantic_index", SKILL_ROOT / "profiler/scripts/build_semantic_index.py"),
+    ("ast_semantic_index", SKILL_ROOT / "profiler/scripts/ast_semantic_index.py"),
+    ("action_catalog", SKILL_ROOT / "analyzer/scripts/extract_actions.py"),
+    ("authority_graph", SKILL_ROOT / "analyzer/scripts/build_authority_graph.py"),
+    ("dependency_graph", SKILL_ROOT / "analyzer/scripts/build_dependency_graph.py"),
+    ("invariant_candidates", SKILL_ROOT / "analyzer/scripts/mine_invariants.py"),
+    ("finding_candidates", SKILL_ROOT / "detective/scripts/generate_finding_candidates.py"),
+    ("finding_confirmation", SKILL_ROOT / "detective/scripts/confirm_findings.py"),
+    ("proof_planning", SKILL_ROOT / "scout/scripts/plan_proofs.py"),
 ]
 
 PHASE_SCRIPT_MAP = {phase_name: script for phase_name, script in PIPELINE}
@@ -67,9 +66,9 @@ def copy_fixture(src: Path, dst: Path) -> None:
 
 
 def benchmark_dirs() -> List[Path]:
-    if not BENCHMARKS_DIR.exists():
+    if not EVAL_FIXTURES_DIR.exists():
         return []
-    return sorted(path for path in BENCHMARKS_DIR.iterdir() if path.is_dir())
+    return sorted(path for path in EVAL_FIXTURES_DIR.iterdir() if path.is_dir())
 
 
 def run_phase(phase_name: str, script: Path, workdir: Path, allow_failure: bool = False) -> Dict[str, object]:
@@ -130,7 +129,7 @@ def run_single_benchmark(benchmark_dir: Path) -> Dict[str, object]:
                 for script_entry in script_sequence:
                     script_ref = str(script_entry)
                     script_path = (
-                        RESOURCES / "build_semantic_index.py"
+                        SKILL_ROOT / "profiler/scripts/build_semantic_index.py"
                         if script_ref == "__RESOURCE__"
                         else (workdir / script_ref).resolve()
                     )

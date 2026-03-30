@@ -1,0 +1,10 @@
+{
+  "expected_findings": [
+    "authority-drift-setQuorum-executeCheckpoint",
+    "unguarded-sink-executeCheckpoint"
+  ],
+  "expected_confirmed": [
+    "authority-drift-setQuorum-executeCheckpoint",
+    "unguarded-sink-executeCheckpoint"
+  ]
+}

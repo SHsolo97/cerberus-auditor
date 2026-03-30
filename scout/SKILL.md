@@ -12,7 +12,7 @@ description: Proof planning and submission skill for cerberus-proof-auditor. Rea
 ## Phases
 
 ### Proof Planning
-`resources/plan_proofs.py`
+`scripts/plan_proofs.py`
 
 Generates structured proof plans from confirmed findings. Classifies confirmability:
 - `confirmable_and_reproducible` — strong source signal, low false-positive risk
@@ -24,21 +24,21 @@ Produces harness candidates, transaction sequences, assertions, expected outcome
 **Outputs:** `proof_plans.json`
 
 ### PoC Design
-`resources/design_poc.py`
+`scripts/design_poc.py`
 
 Per-finding PoC design. Searches repo for test/fixture/mock candidates, classifies finding severity, generates harness guidance, assertions, and run commands. Reads `preferred_toolchain` from `toolchain_config.json` written by cerberus-profiler.
 
 **Outputs:** `poc_spec.md`, `severity_assessment.md`, `submission_notes.md`
 
 ### Test Scaffolding
-`resources/scaffold_tests.py`
+`scripts/scaffold_tests.py`
 
 Generates Foundry (default), Hardhat, or generic Solidity exploit and invariant test scaffolds. Injects audit context (privilege, invariant, rules, exploit families, proof plans, role constants, setters, sinks) as comments. Detects existing `test/Base.t.sol` and reuses it. Runs compile checks before reporting success.
 
 **Outputs:** `<Contract>ExploitPoC.t.sol`, `<Contract>InvariantTest.t.sol`
 
 ### Submission Bundle
-`resources/build_submission_bundle.py`
+`scripts/build_submission_bundle.py`
 
 Takes finding id, title, severity, template (minimal_with_poc / detailed_with_instructions / severity_argument_only), and PoC path. Copies PoC, writes report skeleton, updates `MANIFEST.md`.
 

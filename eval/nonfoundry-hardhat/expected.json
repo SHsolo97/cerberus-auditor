@@ -1,0 +1,6 @@
+{
+  "_toolchain_mode": "hardhat",
+  "_note": "Hardhat project. Skill should detect Hardhat, use hardhat compile for Slither preparation, emit npx hardhat test commands.",
+  "expected_findings": ["unguarded-sink-rescueTokens"],
+  "expected_confirmed": ["unguarded-sink-rescueTokens"]
+}

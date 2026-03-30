@@ -1,0 +1,13 @@
+{
+  "expected_findings": [
+    "implementation-rebinding-setController-upgradeVault"
+  ],
+  "expected_confirmed": [
+    "implementation-rebinding-setController-upgradeVault"
+  ],
+  "expected_proof_plans": [
+    "implementation-rebinding-setController-upgradeVault"
+  ],
+  "expected_top_finding": "implementation-rebinding-setController-upgradeVault",
+  "allowed_extra": []
+}

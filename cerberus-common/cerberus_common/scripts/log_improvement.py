@@ -1,53 +1,68 @@
-#!/usr/bin/env python3
-"""
-log_improvement.py — Append a structured improvement entry to the skill log.
-
-Usage:
-    python3 log_improvement.py --phase <phase> --severity <low|medium|high> \\
-        --category <category> --summary "<summary>" [--suggested-fix "<fix>"]
-
-All paths are derived from SKILL_ROOT (resolved from this script's location).
-"""
 from __future__ import annotations
 
 import argparse
-import sys
-from pathlib import Path
+from typing import List
 
-# Derive SKILL_ROOT: scripts/log_improvement.py -> cerberus_common/scripts -> cerberus-common -> skill root
-SKILL_ROOT = Path(__file__).resolve().parent.parent.parent
-sys.path.insert(0, str(SKILL_ROOT / "cerberus_common"))
+from common import (
+    IMPROVEMENT_HOTSPOTS_FILE,
+    IMPROVEMENT_LOG_FILE,
+    IMPROVEMENT_SUMMARY_FILE,
+    append_improvement_entry,
+    utc_now_iso,
+)
 
-from improvement import append_improvement_entry, utc_now_iso
 
-import uuid
+def parse_args() -> argparse.Namespace:
+    parser = argparse.ArgumentParser(description="Append a structured skill-improvement observation.")
+    parser.add_argument("--run-id", required=True, help="Run identifier from .audit_board/skill_monitor_context.json.")
+    parser.add_argument("--phase", required=True, help="Skill phase associated with the observation.")
+    parser.add_argument("--severity", choices=("low", "medium", "high"), required=True, help="Operational importance.")
+    parser.add_argument("--category", required=True, help="Short machine-friendly category, e.g. output_quality.")
+    parser.add_argument("--summary", required=True, help="One-line problem statement.")
+    parser.add_argument("--suggested-fix", required=True, help="Concrete improvement to implement later.")
+    parser.add_argument("--source", default="monitor_subagent", help="Who recorded the observation.")
+    parser.add_argument("--evidence", action="append", default=[], help="Artifact path or note supporting the observation.")
+    parser.add_argument("--detail", action="append", default=[], help="Extra free-form details.")
+    return parser.parse_args()
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(description="Log a structured improvement entry.")
-    parser.add_argument("--phase", required=True, help="Phase name (e.g. ast_semantic_index)")
-    parser.add_argument("--severity", required=True, choices={"low", "medium", "high"}, help="Severity level")
-    parser.add_argument("--category", required=True, help="Category (e.g. runtime_error, missing_coverage)")
-    parser.add_argument("--summary", required=True, help="One-line summary of the issue")
-    parser.add_argument("--suggested-fix", default="", help="Suggested fix description")
-    parser.add_argument("--source", default="manual", help="Source of the entry")
-    parser.add_argument("--run-id", default=None, help="Run ID (auto-generated if not provided)")
-    args = parser.parse_args()
+    args = parse_args()
 
-    entry = {
-        "timestamp": utc_now_iso(),
-        "run_id": args.run_id or str(uuid.uuid4())[:8],
-        "phase": args.phase,
-        "severity": args.severity,
-        "category": args.category,
-        "source": args.source,
-        "summary": args.summary,
-        "suggested_fix": args.suggested_fix or "Inspect the relevant phase and update the skill.",
-        "details": {},
-    }
+    if not args.summary.strip():
+        raise SystemExit("--summary must not be empty")
 
-    append_improvement_entry(entry)
-    print(f"Logged improvement entry: [{args.severity}] {args.phase}: {args.summary}")
+    details: List[str] = [item.strip() for item in args.detail if item.strip()]
+    evidence: List[str] = [item.strip() for item in args.evidence if item.strip()]
+
+    append_improvement_entry(
+        {
+            "timestamp": utc_now_iso(),
+            "run_id": args.run_id,
+            "phase": args.phase,
+            "severity": args.severity,
+            "category": args.category,
+            "source": args.source,
+            "summary": args.summary,
+            "details": details,
+            "evidence": evidence,
+            "suggested_fix": args.suggested_fix,
+        }
+    )
+
+    import json as _json
+    print(
+        _json.dumps(
+            {
+                "ok": True,
+                "log_file": str(IMPROVEMENT_LOG_FILE),
+                "summary_file": str(IMPROVEMENT_SUMMARY_FILE),
+                "hotspots_file": str(IMPROVEMENT_HOTSPOTS_FILE),
+                "run_id": args.run_id,
+                "phase": args.phase,
+            }
+        )
+    )
     return 0
 
 

@@ -1,0 +1,13 @@
+{
+  "expected_findings": [
+    "implementation-rebinding-armSelection__enablePromotion__setRiskyMode-executeRescue"
+  ],
+  "expected_confirmed": [
+    "implementation-rebinding-armSelection__enablePromotion__setRiskyMode-executeRescue"
+  ],
+  "expected_proof_plans": [
+    "implementation-rebinding-armSelection__enablePromotion__setRiskyMode-executeRescue"
+  ],
+  "expected_top_finding": "implementation-rebinding-armSelection__enablePromotion__setRiskyMode-executeRescue",
+  "allowed_extra": []
+}

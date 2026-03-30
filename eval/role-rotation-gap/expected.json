@@ -1,0 +1,6 @@
+{
+  "expected_findings": [],
+  "expected_confirmed": [],
+  "expected_rejected": [],
+  "_note": "No findings generated: the semantic indexer does not detect role-based access patterns from abstract AccessControl methods (grantRole/revokeRole), so authority drift via incomplete role rotation is not surfaced. This is a detector limitation — the benchmark code is structurally vulnerable."
+}

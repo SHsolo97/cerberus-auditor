@@ -12,7 +12,7 @@ description: Contradiction-finding engine for cerberus-proof-auditor. Reads all 
 ## Phases
 
 ### Finding Candidates
-`resources/generate_finding_candidates.py`
+`scripts/generate_finding_candidates.py`
 
 The core contradiction-finding engine. Six finding families:
 
@@ -28,14 +28,14 @@ Maintains `dominated_*` sets to prevent duplicates. Produces `finding_candidates
 **Outputs:** `finding_candidates.json`
 
 ### Finding Confirmation
-`resources/confirm_findings.py`
+`scripts/confirm_findings.py`
 
 Structured confirmation: dead-code rejection (interface-only sinks), scope disqualification, parent-guard-shadow detection, guard equivalence check. Confidence boost/deduction based on scope and guard analysis.
 
 **Outputs:** `finding_confirmations.json`
 
 ### Hypothesis Triage
-`resources/triage_hypotheses.py`
+`scripts/triage_hypotheses.py`
 
 Fuses finding candidates, confirmations, and proof plans into exploit hypotheses with five-stage proof maturity: `hypothesis` → `source_confirmed` → `locally_reproduced` → `deterministic_poc` → `submission_ready`. A sixth state, `rejected`, applies when false-positive paths explicitly rule out a finding.
 

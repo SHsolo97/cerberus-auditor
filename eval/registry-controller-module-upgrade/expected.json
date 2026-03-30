@@ -1,0 +1,13 @@
+{
+  "expected_findings": [
+    "implementation-rebinding-setRegistry-upgradeVault"
+  ],
+  "expected_confirmed": [
+    "implementation-rebinding-setRegistry-upgradeVault"
+  ],
+  "expected_proof_plans": [
+    "implementation-rebinding-setRegistry-upgradeVault"
+  ],
+  "expected_top_finding": "implementation-rebinding-setRegistry-upgradeVault",
+  "allowed_extra": []
+}

@@ -1,0 +1,27 @@
+{
+  "preflight_script_sequence": [
+    "phase_overrides/missing_semantic_index.py",
+    "__RESOURCE__"
+  ],
+  "expected_preflight_decisions": [
+    "stop_and_escalate",
+    "resume"
+  ],
+  "expected_findings": [
+    "callback-state-drift-settleBridge",
+    "recovery-path-settleBridge",
+    "settlement-dependency-bridge"
+  ],
+  "expected_confirmed": [
+    "callback-state-drift-settleBridge",
+    "recovery-path-settleBridge",
+    "settlement-dependency-bridge"
+  ],
+  "expected_proof_plans": [
+    "callback-state-drift-settleBridge",
+    "recovery-path-settleBridge",
+    "settlement-dependency-bridge"
+  ],
+  "forbidden_proof_plans": [],
+  "expected_top_finding": "settlement-dependency-bridge"
+}

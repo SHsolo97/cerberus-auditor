@@ -1,0 +1,9 @@
+{
+  "expected_findings": [
+    "recovery-dependency-registry",
+    "recovery-path-recoverAssets"
+  ],
+  "expected_confirmed": [
+    "recovery-path-recoverAssets"
+  ]
+}

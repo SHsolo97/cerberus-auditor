@@ -55,7 +55,7 @@ When both `semantic_index.json` and `ast_semantic_index.json` are present, downs
 
 **Findings are hypotheses until confirmed.** Treat generated artifacts as tentative until validated by source review or deterministic tests.
 
-**Reference corpus.** Use `references/sharp_edges.md` to pressure-test attack hypotheses. Use `references/validations.md` to sanity-check whether suspicious code patterns deserve explicit mention. Use `references/patterns.md` only when proposing mitigations or test ideas.
+**Reference corpus.** Use `profiler/references/sharp_edges.md` to pressure-test attack hypotheses. Use `profiler/references/validations.md` to sanity-check whether suspicious code patterns deserve explicit mention. Use `profiler/references/patterns.md` only when proposing mitigations or test ideas.
 
 **Existing harnesses first.** Prefer reusing `test/Base.t.sol` or similar repo harnesses when scaffolding proofs. Record the exact file path in `poc_spec.md`.
 
@@ -96,38 +96,38 @@ skill cerberus-scout --target-dir src
 Owns the canonical `references/` corpus. Other skills reference it via `../../profiler/references/`.
 
 ### Phase 0 — Init Workspace
-`resources/init_workspace.py --target-dir <dir>`
+`profiler/scripts/init_workspace.py --target-dir <dir>`
 
 Creates `.audit_board/` with 30+ placeholder artifacts, detects toolchains, generates a run_id, and creates `skill_monitor_context.json`. Non-destructive and rerunnable.
 
 ### Phase 0.5 — Preflight / Repair
-`resources/preflight_or_repair.py --phase-name <name> --script-path <path> --target-dir <dir>`
+`profiler/scripts/preflight_or_repair.py --phase-name <name> --script-path <path> --target-dir <dir>`
 
 Before any phase: validates scripts compile (`py_compile`), previous artifacts exist and are not stubs, applies two local syntax patches for known common bugs. Produces `repair_log.json`.
 
 ### Phase 1 — Architecture Analysis
-`resources/analyze_architecture.py --target-dir <dir>`
+`profiler/scripts/analyze_architecture.py --target-dir <dir>`
 
 Discovers Solidity files, selects the primary contract, runs `forge flatten` (or falls back to `concat_imports()`), probes and runs Slither printers (contract-summary, modifiers, require). Falls back to source-derived topology. Parses README for trusted roles, invariants, known issues. Builds privilege map.
 
 **Outputs:** `context_flattened.sol`, `topology_map.txt`, `contest_context.json`, `privilege_map.md`
 
 ### Phase 2 — State Vector Extraction
-`resources/extract_state_vectors.py --target-dir <dir>`
+`profiler/scripts/extract_state_vectors.py --target-dir <dir>`
 
 Scans for Slither state-surface printers (function-summary, entry-points, vars-and-auth), scans for `delegatecall` usage, runs `forge inspect <contract> storageLayout`, falls back to regex-based storage inference. Builds invariant map from address setters and role mutations.
 
 **Outputs:** `external_calls.txt`, `storage_layout.json`, `invariant_map.md`
 
 ### Phase 2.5 — AST Semantic Index
-`resources/ast_semantic_index.py --target-dir <dir>`
+`profiler/scripts/ast_semantic_index.py --target-dir <dir>`
 
 Primary semantic indexer. Tries Slither `--json` first, parses JSON into typed schema with provenance (`_ast_mode: true`). Falls back to brace-depth regex indexer if AST is unavailable (sets `_ast_mode: false`).
 
 **Outputs:** `ast_semantic_index.json`
 
 ### Pre-AST Fallback
-`resources/build_semantic_index.py --target-dir <dir>`
+`profiler/scripts/build_semantic_index.py --target-dir <dir>`
 
 Pure regex-based semantic indexer. Used only when Slither JSON is unavailable. Produces `semantic_index.json`.
 
@@ -138,29 +138,29 @@ Pure regex-based semantic indexer. Used only when Slither JSON is unavailable. P
 **Invocable standalone:** YES. Run `skill cerberus-analyzer --target-dir <path>` after `cerberus-profiler` has produced `ast_semantic_index.json`.
 
 ### Action Catalog
-`resources/extract_actions.py`
+`analyzer/scripts/extract_actions.py`
 
 Loads the semantic index, builds inheritance-aware resolved function maps, transitively resolves effects through internal calls and member calls. Produces `action_catalog.json` and `state_transition_map.json`.
 
 ### Authority Graph
-`resources/build_authority_graph.py`
+`analyzer/scripts/build_authority_graph.py`
 
 Builds authority graph with roles, guard→function edges, sinks, and setters. Uses transitive guard analysis.
 
 ### Dependency Graph
-`resources/build_dependency_graph.py`
+`analyzer/scripts/build_dependency_graph.py`
 
 Regex-scans for oracle/registry/bridge/proxy/callback dependency patterns, propagates through inheritance, classifies criticality (settlement_critical, recovery_critical, gating).
 
 ### Invariant Mining
-`resources/mine_invariants.py`
+`analyzer/scripts/mine_invariants.py`
 
 Reads action catalog, authority graph, dependency graph. Heuristically generates invariant candidates: recovery paths, authority rotation, oracle safety, trust boundary patterns, unguarded sinks/setters.
 
 ### Rule Scan
-`resources/rule_scan.py`
+`analyzer/scripts/rule_scan.py`
 
-Parses `references/validations.md` and `references/sharp_edges.md`, scans Solidity files with regex, scores exploit families. Suppresses known noise categories.
+Parses `profiler/references/validations.md` and `profiler/references/sharp_edges.md`, scans Solidity files with regex, scores exploit families. Suppresses known noise categories.
 
 **Outputs:** `rule_scan.json`, `rule_scan.md`, `exploit_rankings.md`
 
@@ -171,7 +171,7 @@ Parses `references/validations.md` and `references/sharp_edges.md`, scans Solidi
 **Invocable standalone:** YES. Run `skill cerberus-detective --target-dir <path>` after `cerberus-profiler` and `cerberus-analyzer` have completed.
 
 ### Finding Candidates
-`resources/generate_finding_candidates.py`
+`detective/scripts/generate_finding_candidates.py`
 
 Six finding families:
 
@@ -185,12 +185,12 @@ Six finding families:
 Maintains `dominated_*` sets to prevent duplicates. Produces `finding_candidates.json` sorted by confidence score.
 
 ### Finding Confirmation
-`resources/confirm_findings.py`
+`detective/scripts/confirm_findings.py`
 
 Structured confirmation: dead-code rejection (interface-only sinks), scope disqualification, parent-guard-shadow detection, guard equivalence check. Confidence boost/deduction based on scope and guard analysis.
 
 ### Hypothesis Triage
-`resources/triage_hypotheses.py`
+`detective/scripts/triage_hypotheses.py`
 
 Fuses finding candidates, confirmations, and proof plans into exploit hypotheses with five-stage proof maturity: `hypothesis` → `source_confirmed` → `locally_reproduced` → `deterministic_poc` → `submission_ready`. A sixth state, `rejected`, applies when false-positive paths explicitly rule out a finding.
 
@@ -203,7 +203,7 @@ Fuses finding candidates, confirmations, and proof plans into exploit hypotheses
 **Invocable standalone:** YES. Run `skill cerberus-scout --target-dir <path>` after `cerberus-detective` has produced `finding_confirmations.json`.
 
 ### Proof Planning
-`resources/plan_proofs.py`
+`scout/scripts/plan_proofs.py`
 
 Generates structured proof plans from confirmed findings. Classifies confirmability:
 - `confirmable_and_reproducible` — strong source signal, low false-positive risk
@@ -213,19 +213,19 @@ Generates structured proof plans from confirmed findings. Classifies confirmabil
 Produces harness candidates, transaction sequences, assertions, expected outcomes, and minimum test commands per toolchain (Foundry, Hardhat, Truffle, Brownie, Anchor, bare).
 
 ### PoC Design
-`resources/design_poc.py`
+`scout/scripts/design_poc.py`
 
 Per-finding PoC design. Searches repo for test/fixture/mock candidates, classifies finding severity, generates harness guidance, assertions, and run commands. Reads `preferred_toolchain` from `toolchain_config.json` written by profiler.
 
 **Outputs:** `poc_spec.md`, `severity_assessment.md`, `submission_notes.md`
 
 ### Test Scaffolding
-`resources/scaffold_tests.py`
+`scout/scripts/scaffold_tests.py`
 
 Generates Foundry (default), Hardhat, or generic Solidity exploit and invariant test scaffolds. Injects audit context (privilege, invariant, rules, exploit families, proof plans, role constants, setters, sinks, violated_invariant, blocking_assumptions) as comments. Detects existing `test/Base.t.sol` and reuses it. Runs compile checks before reporting success.
 
 ### Submission Bundle
-`resources/build_submission_bundle.py`
+`scout/scripts/build_submission_bundle.py`
 
 Takes finding id, title, severity, template (minimal_with_poc / detailed_with_instructions / severity_argument_only), and PoC path. Copies PoC, writes report skeleton, updates `MANIFEST.md`.
 
@@ -334,7 +334,7 @@ Run individual regression checks:
 python3 meta/eval_regressions.py
 ```
 
-Benchmarks are in `benchmarks/` (73 fixture directories). Each fixture includes Solidity source, `foundry.toml`, and an `expected.json` that encodes expected findings, confirmations, proof plans, preflight decisions, and corruption/recovery behaviors.
+Benchmarks are in `eval/` (73 fixture directories). Each fixture includes Solidity source, `foundry.toml`, and an `expected.json` that encodes expected findings, confirmations, proof plans, preflight decisions, and corruption/recovery behaviors.
 
 Regression targets include: authority graph must have ≥1 sink and ≥1 setter; dependency graph must have ≥1 dependency; finding candidates must include expected IDs; confirmations must reflect expected maturity.
 

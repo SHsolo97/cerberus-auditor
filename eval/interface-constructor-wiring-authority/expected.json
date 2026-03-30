@@ -1,0 +1,12 @@
+{
+  "expected_findings": [
+    "authority-drift-rotateAuthority-executeRescue"
+  ],
+  "expected_confirmed": [
+    "authority-drift-rotateAuthority-executeRescue"
+  ],
+  "expected_proof_plans": [
+    "authority-drift-rotateAuthority-executeRescue"
+  ],
+  "expected_top_finding": "authority-drift-rotateAuthority-executeRescue"
+}

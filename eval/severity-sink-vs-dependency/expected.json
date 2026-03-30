@@ -1,0 +1,17 @@
+{
+  "expected_findings": [
+    "recovery-dependency-registry",
+    "recovery-path-recoverAssets",
+    "unguarded-sink-rescueToken"
+  ],
+  "expected_confirmed": [
+    "recovery-dependency-registry",
+    "recovery-path-recoverAssets",
+    "unguarded-sink-rescueToken"
+  ],
+  "expected_top_finding": "unguarded-sink-rescueToken",
+  "expected_order_prefix": [
+    "unguarded-sink-rescueToken",
+    "recovery-dependency-registry"
+  ]
+}

@@ -10,24 +10,24 @@ import importlib.util
 from pathlib import Path
 
 
-# scripts live under cerberus-proof-auditor/resources/ (not meta/)
-SKILL_RESOURCES = Path(__file__).resolve().parent.parent / "resources"
-ANALYZE_ARCHITECTURE = SKILL_RESOURCES / "analyze_architecture.py"
-COMMON = SKILL_RESOURCES / "common.py"
-RULE_SCAN = SKILL_RESOURCES / "rule_scan.py"
-SCAFFOLD_TESTS = SKILL_RESOURCES / "scaffold_tests.py"
-INIT_WORKSPACE = SKILL_RESOURCES / "init_workspace.py"
-PREFLIGHT = SKILL_RESOURCES / "preflight_or_repair.py"
-SEMANTIC_INDEX = SKILL_RESOURCES / "build_semantic_index.py"
-EXTRACT_ACTIONS = SKILL_RESOURCES / "extract_actions.py"
-AUTHORITY_GRAPH = SKILL_RESOURCES / "build_authority_graph.py"
-DEPENDENCY_GRAPH = SKILL_RESOURCES / "build_dependency_graph.py"
-MINE_INVARIANTS = SKILL_RESOURCES / "mine_invariants.py"
-GENERATE_FINDINGS = SKILL_RESOURCES / "generate_finding_candidates.py"
-CONFIRM_FINDINGS = SKILL_RESOURCES / "confirm_findings.py"
-PLAN_PROOFS = SKILL_RESOURCES / "plan_proofs.py"
-TRIAGE_HYPOTHESES = SKILL_RESOURCES / "triage_hypotheses.py"
-DESIGN_POC = SKILL_RESOURCES / "design_poc.py"
+# scripts live under their owning sub-skill/scripts/ directories
+SKILL_ROOT = Path(__file__).resolve().parent.parent
+ANALYZE_ARCHITECTURE = SKILL_ROOT / "profiler/scripts/analyze_architecture.py"
+COMMON = SKILL_ROOT / "analyzer/resources/common.py"
+RULE_SCAN = SKILL_ROOT / "analyzer/scripts/rule_scan.py"
+SCAFFOLD_TESTS = SKILL_ROOT / "scout/scripts/scaffold_tests.py"
+INIT_WORKSPACE = SKILL_ROOT / "profiler/scripts/init_workspace.py"
+PREFLIGHT = SKILL_ROOT / "profiler/scripts/preflight_or_repair.py"
+SEMANTIC_INDEX = SKILL_ROOT / "profiler/scripts/build_semantic_index.py"
+EXTRACT_ACTIONS = SKILL_ROOT / "analyzer/scripts/extract_actions.py"
+AUTHORITY_GRAPH = SKILL_ROOT / "analyzer/scripts/build_authority_graph.py"
+DEPENDENCY_GRAPH = SKILL_ROOT / "analyzer/scripts/build_dependency_graph.py"
+MINE_INVARIANTS = SKILL_ROOT / "analyzer/scripts/mine_invariants.py"
+GENERATE_FINDINGS = SKILL_ROOT / "detective/scripts/generate_finding_candidates.py"
+CONFIRM_FINDINGS = SKILL_ROOT / "detective/scripts/confirm_findings.py"
+PLAN_PROOFS = SKILL_ROOT / "scout/scripts/plan_proofs.py"
+TRIAGE_HYPOTHESES = SKILL_ROOT / "detective/scripts/triage_hypotheses.py"
+DESIGN_POC = SKILL_ROOT / "scout/scripts/design_poc.py"
 
 
 def write(path: Path, content: str) -> None:

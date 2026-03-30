@@ -1,0 +1,13 @@
+{
+  "expected_findings": [
+    "implementation-rebinding-setRiskProfile-executeRescue"
+  ],
+  "expected_confirmed": [
+    "implementation-rebinding-setRiskProfile-executeRescue"
+  ],
+  "expected_proof_plans": [
+    "implementation-rebinding-setRiskProfile-executeRescue"
+  ],
+  "expected_top_finding": "implementation-rebinding-setRiskProfile-executeRescue",
+  "allowed_extra": []
+}

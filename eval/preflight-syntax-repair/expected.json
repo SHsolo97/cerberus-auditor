@@ -1,0 +1,19 @@
+{
+  "preflight_script_sequence": [
+    "phase_overrides/broken_semantic_index.py",
+    "__RESOURCE__"
+  ],
+  "expected_preflight_decisions": [
+    "patch_before_resume",
+    "resume"
+  ],
+  "expected_findings": [
+    "authority-drift-setTreasury-rescueToken"
+  ],
+  "expected_confirmed": [
+    "authority-drift-setTreasury-rescueToken"
+  ],
+  "expected_proof_plans": [
+    "authority-drift-setTreasury-rescueToken"
+  ]
+}

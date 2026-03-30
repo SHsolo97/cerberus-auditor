@@ -1,0 +1,14 @@
+{
+  "expected_findings": [
+    "callback-state-drift-settle",
+    "recovery-path-settle",
+    "settlement-dependency-oracle"
+  ],
+  "expected_confirmed": [
+    "callback-state-drift-settle",
+    "recovery-path-settle",
+    "settlement-dependency-oracle"
+  ],
+  "expected_rejected": [],
+  "_note": "These findings are false positives: the detector cannot distinguish safe view-oracle reads (Oracle.latestAnswer is view-only; settle() validates price before use). The semantic indexer treats oracle.latestAnswer() as a state dependency, producing settlement-dependency-oracle, and treats any external-call + state-write combination as callback_state_drift regardless of safety. The 'near-miss' property is not detectable at the structural extraction level."
+}

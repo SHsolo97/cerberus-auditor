@@ -1,0 +1,13 @@
+{
+  "expected_findings": [
+    "implementation-rebinding-armStaging__enableRelay__setRiskyMode-executeRescue"
+  ],
+  "expected_confirmed": [
+    "implementation-rebinding-armStaging__enableRelay__setRiskyMode-executeRescue"
+  ],
+  "expected_proof_plans": [
+    "implementation-rebinding-armStaging__enableRelay__setRiskyMode-executeRescue"
+  ],
+  "expected_top_finding": "implementation-rebinding-armStaging__enableRelay__setRiskyMode-executeRescue",
+  "allowed_extra": []
+}

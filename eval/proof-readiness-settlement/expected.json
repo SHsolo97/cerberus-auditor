@@ -1,0 +1,23 @@
+{
+  "expected_findings": [
+    "callback-state-drift-settleBridge",
+    "recovery-path-settleBridge",
+    "settlement-dependency-bridge"
+  ],
+  "expected_confirmed": [
+    "callback-state-drift-settleBridge",
+    "recovery-path-settleBridge",
+    "settlement-dependency-bridge"
+  ],
+  "expected_proof_plans": [
+    "callback-state-drift-settleBridge",
+    "recovery-path-settleBridge",
+    "settlement-dependency-bridge"
+  ],
+  "forbidden_proof_plans": [],
+  "expected_top_finding": "settlement-dependency-bridge",
+  "expected_order_prefix": [
+    "settlement-dependency-bridge",
+    "callback-state-drift-settleBridge"
+  ]
+}

@@ -1,0 +1,6 @@
+{
+  "_toolchain_mode": "mixed",
+  "_note": "Project with both foundry.toml and hardhat.config.js. Skill should prefer Foundry for flatten/storage, use Hardhat as fallback.",
+  "expected_findings": ["authority-drift-changeAdmin-setAdmin"],
+  "expected_confirmed": ["authority-drift-changeAdmin-setAdmin"]
+}

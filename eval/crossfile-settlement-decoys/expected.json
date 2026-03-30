@@ -1,0 +1,13 @@
+{
+  "expected_findings": [
+    "callback-state-drift-settleBridge",
+    "recovery-path-settleBridge",
+    "settlement-dependency-bridge"
+  ],
+  "expected_confirmed": [
+    "callback-state-drift-settleBridge",
+    "recovery-path-settleBridge",
+    "settlement-dependency-bridge"
+  ],
+  "expected_top_finding": "settlement-dependency-bridge"
+}

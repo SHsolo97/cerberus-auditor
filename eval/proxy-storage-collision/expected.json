@@ -1,0 +1,8 @@
+{
+  "expected_findings": [
+    "recovery-dependency-proxy"
+  ],
+  "expected_confirmed": [],
+  "expected_rejected": [],
+  "_note": "recovery-dependency-proxy is generated but has target_functions=[], keeping it at weak_signal (not source_confirmed). No implementation-rebinding or authority_drift finding is generated because the semantic indexer does not detect storage-slot-level rebinding across separate contracts without shared state variable declarations. This is a detector limitation."
+}

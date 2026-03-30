@@ -1,0 +1,22 @@
+{
+  "corruption_steps": [
+    {
+      "before_phase": "action_catalog",
+      "write_path": ".audit_board/semantic_index.json",
+      "content": "{\"contracts\": ",
+      "recover_with_phases": ["semantic_index"]
+    }
+  ],
+  "expected_corruption_failures": [
+    "action_catalog"
+  ],
+  "expected_findings": [
+    "authority-drift-setTreasury-rescueToken"
+  ],
+  "expected_confirmed": [
+    "authority-drift-setTreasury-rescueToken"
+  ],
+  "expected_proof_plans": [
+    "authority-drift-setTreasury-rescueToken"
+  ]
+}

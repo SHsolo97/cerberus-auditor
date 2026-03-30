@@ -1,0 +1,13 @@
+{
+  "expected_findings": [
+    "implementation-rebinding-armEmergency__setRiskyMode-executeRescue"
+  ],
+  "expected_confirmed": [
+    "implementation-rebinding-armEmergency__setRiskyMode-executeRescue"
+  ],
+  "expected_proof_plans": [
+    "implementation-rebinding-armEmergency__setRiskyMode-executeRescue"
+  ],
+  "expected_top_finding": "implementation-rebinding-armEmergency__setRiskyMode-executeRescue",
+  "allowed_extra": []
+}
